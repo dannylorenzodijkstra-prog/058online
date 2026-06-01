@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<link rel="icon" href="Logo.png" type="image/png" />
+<link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0B4F9A" />
+  <title>058online</title>
+  <style>
+
+
+#sponsoren {
+  scroll-margin-top: 470px; /* De waarde die voor sponsoren goed werkt */
+}
+
+#contact {
+  scroll-margin-top: 20px; /* Pas dit getal aan tot contact precies op de juiste plek stopt */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.video-tile {
+  grid-column: span 2; /* Maakt hem breed */
+  height: 250px;       /* Hier bepaal je nu de hoogte */
+  padding: 0;
+}
+
+.video-tile iframe {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.tile {
+  /* ... je bestaande code ... */
+  overflow: hidden; /* Dit zorgt dat de iframe niet buiten de afgeronde hoekjes steekt */
+  position: relative;
+}
+
+.tile iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+    .app-logo {
+    width: 256px;
+    height: auto;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    display: block;
+  }
+    .contact-form {
+  display: grid;
+  gap: 12px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  border-radius: 16px;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.contact-form button {
+  background: var(--accent);
+  color: #071b3e;
+  font-weight: 700;
+  border: none;
+  padding: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+.sponsor-logo {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05); /* Optioneel: lichte achtergrond voor logo's */
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s;
+}
+
+.sponsor-logo:hover {
+  transform: scale(1.05);
+}
+
+.contact-form button:hover {
+  opacity: 0.9;
+}
+    :root {
+      color-scheme: dark;
+      --bg: #071b3e;
+      --surface: rgba(255, 255, 255, 0.08);
+      --surface-strong: rgba(255, 255, 255, 0.14);
+      --accent: #ffd200;
+      --text: #f6f7ff;
+      --muted: #b9c4e0;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: radial-gradient(circle at top, #0e5bbf 0%, #071b3e 52%, #020814 100%);
+      color: var(--text);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 24px 16px 100px;
+    }
+
+    .app-shell {
+      width: min(100%, 760px);
+      display: grid;
+      gap: 22px;
+    }
+
+    .hero {
+      padding: 28px 28px 26px;
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(11, 79, 154, 0.95), rgba(4, 20, 54, 0.92));
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.03;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255, 210, 0, 0.12);
+      color: #fff;
+      font-weight: 600;
+      width: fit-content;
+      margin-top: 18px;
+    }
+
+    .cards {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: 28px;
+      background: var(--surface);
+      padding: 22px;
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .card.grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    }
+
+    .tile {
+      border-radius: 24px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .tile span {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .tile strong {
+      font-size: 1.15rem;
+      line-height: 1.3;
+      margin-top: 14px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      font-size: 1.55rem;
+      margin: 0;
+    }
+
+    .section-description {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .video-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: grid;
+      gap: 12px;
+      cursor: pointer;
+      border: none;
+      font: inherit;
+      text-align: left;
+      background-clip: padding-box;
+    }
+
+    .video-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    }
+
+    .video-card img {
+      width: 100%;
+      height: 138px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-card-content {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .video-card h3 {
+      font-size: 1rem;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .video-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .video-hint {
+      color: var(--muted);
+      text-align: center;
+      padding: 18px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .video-status {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .video-player {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #000;
+      min-height: 240px;
+      margin-bottom: 18px;
+    }
+
+    .video-player.hidden {
+      display: none;
+    }
+
+    .video-player-inner {
+      position: relative;
+      padding-top: 56.25%;
+    }
+
+    .video-player iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      border: none;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      inset: auto 14px 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(100%, 560px);
+      border-radius: 28px;
+      background: rgba(4, 22, 64, 0.96);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+      padding: 12px 16px;
+      z-index: 20;
+    }
+
+    .bottom-nav nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .nav-item {
+      display: grid;
+      gap: 6px;
+      place-items: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.86rem;
+      padding: 10px 0;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding-bottom: 140px;
+      }
+
+      .hero {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <section class="hero">
+      <img src="Logo.png" alt="058online Logo" class="app-logo">
+  
+  
+      <h3></h3>
+      <p>Bekijk onze nieuwste video's en blijf op de hoogte van al onze items.</p>
+    </section>
+
+    <section class="cards">
+      <article class="card" id="nieuws">
+        <strong>Wij zoeken versterking!</strong>
+        <h2></h2>
+        <p>Wij zoeken enthousiaste vrijwilligers voor video en nieuws uit Leeuwarden. Help jij mee onze stad in beeld te brengen? Meld je direct aan via de app!</p>
+      </article>
+
+      <article class="card grid">
+        <div class="tile video-tile">
+  <!-- width en height verwijderd uit de tag zelf -->
+  <iframe src="https://www.youtube.com/embed/qCw9S3FhgJ8?si=SYHK9ig6f3Mg_xGs" 
+          frameborder="0" 
+          allowfullscreen>
+  </iframe>
+</div>
+ 
+      </article>
+
+      <section id="videos" class="card">
+        <div class="section-title">
+          <div>
+            <strong>Video's</strong>
+            <h2></h2>
+          </div>
+        </div>
+        <p class="section-description">Bekijk onze video's.</p>
+
+        <div id="video-player" class="video-player hidden">
+          <div class="video-player-inner">
+            <button id="close-player" class="video-close" aria-label="Sluit video">×</button>
+            <iframe id="video-iframe" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div id="video-list" class="video-grid"></div>
+        <div id="video-status" class="video-status">Video’s worden geladen...</div>
+        
+      </section>
+
+      <article class="card" id="sponsoren">
+  <strong>Sponsor worden?</strong>
+  <h2>Neem dan snel contact met ons op!</h2>
+  <p style="margin-bottom: 20px;">Wij werken samen met geweldige partners die 058online mogelijk maken.</p>
+  
+   <div class="sponsor-grid">
+  <a href="https://detrilker.nl/" target="_blank" rel="noopener noreferrer">
+    <img src="Sponsoren/De_Trilker.webp" alt="Sponsor 1" class="sponsor-logo">
+  </a>
+
+  <a href="https://www.facebook.com/kaashandelvandijk" target="_blank" rel="noopener noreferrer">
+    <img src="sponsoren/Van_Dijk_Kaashandel.webp" alt="Sponsor 2" class="sponsor-logo">
+  </a>
+
+ <a href="https://petsenco.nl/item/deleeuwerik/" target="_blank" rel="noopener noreferrer">
+    <img src="Sponsoren/Pets_en_Co_de_Leeuwerik.webp" alt="Sponsor 2" class="sponsor-logo">
+  </a>
+
+</div>
+  
+</article>
+
+    <article class="card" id="contact">
+        <strong>Contact</strong>
+  <h2>Contact met de redactie</h2>
+  <p style="margin-bottom: 20px;">Stuur je vragen, tips of feedback rechtstreeks naar het 058online-team.</p>
+  
+  <form action="https://formspree.io/f/xredvdoz" method="POST" class="contact-form">
+    <input type="text" name="name" placeholder="Je naam" required>
+    <input type="email" name="email" placeholder="Je e-mailadres" required>
+    <textarea name="message" placeholder="Je bericht" rows="4" required></textarea>
+    <button type="submit">Versturen</button>
+  </form>
+      </article>
+    </section>
+  </div>
+
+  <div class="bottom-nav">
+    <nav>
+      <a class="nav-item active" href="#">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4V6zm0 5h10v2H4v-2zm0 5h16v2H4v-2z"/></svg>
+        Home
+      </a>
+      <a class="nav-item" href="#videos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm10 5l-5 3V8l5 3z"/></svg>
+        Video's
+      </a>
+      <a class="nav-item" href="#sponsoren">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+  </svg>
+  Sponsoren
+</a>
+      <a class="nav-item" href="#contact">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        Contact
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    const YOUTUBE_API_KEY = 'AIzaSyBmpiU8A2J4No2cW3EYa51fXMaE_Gt4lcY';
+    const YOUTUBE_CHANNEL_ID = 'UCHVdIoiGJXXUrUM0HtP4_ZQ';
+    const YOUTUBE_PLAYLIST_ID = '';
+
+    const videoList = document.getElementById('video-list');
+    const videoStatus = document.getElementById('video-status');
+    const player = document.getElementById('video-player');
+    const playerIframe = document.getElementById('video-iframe');
+    const closePlayer = document.getElementById('close-player');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    closePlayer.addEventListener('click', () => {
+      playerIframe.src = '';
+      player.classList.add('hidden');
+    });
+
+    async function getUploadPlaylistId(channelId) {
+      const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${YOUTUBE_API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error?.message || 'Kan kanaalgegevens niet ophalen.');
+      return data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+    }
+
+    async function loadYoutubeVideos() {
+      try {
+        if (YOUTUBE_API_KEY.includes('YOUR_API_KEY') || !YOUTUBE_API_KEY) {
+          videoStatus.textContent = 'Vul je YouTube API-sleutel in het script in om video’s te laden.';
+          return;
+        }
+
+        let playlistId = YOUTUBE_PLAYLIST_ID;
+        if (!playlistId && YOUTUBE_CHANNEL_ID) {
+          playlistId = await getUploadPlaylistId(YOUTUBE_CHANNEL_ID);
+        }
+
+        if (!playlistId) {
+          videoStatus.textContent = 'Voeg een playlist-ID of channel-ID toe in het script om video’s te laden.';
+          return;
+        }
+
+        const apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=8&playlistId=${playlistId}&key=${YOUTUBE_API_KEY}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error?.message || 'Fout bij het ophalen van video’s.');
+        }
+
+        if (!data.items?.length) {
+          videoStatus.textContent = 'Er zijn momenteel geen video’s beschikbaar in deze playlist.';
+          return;
+        }
+
+        videoList.innerHTML = data.items.map(item => {
+          const snippet = item.snippet;
+          const videoId = snippet.resourceId.videoId;
+          const thumbnail = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url;
+          const published = snippet.publishedAt ? snippet.publishedAt.slice(0, 10) : '';
+          return `
+            <button class="video-card" type="button" data-video-id="${videoId}">
+              <img src="${thumbnail}" alt="${snippet.title}" loading="lazy" />
+              <div class="video-card-content">
+                <h3>${snippet.title}</h3>
+                <p>${published}</p>
+              </div>
+            </button>
+          `;
+        }).join('');
+
+        videoList.querySelectorAll('.video-card').forEach(button => {
+          button.addEventListener('click', () => {
+            const videoId = button.dataset.videoId;
+            playerIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            player.classList.remove('hidden');
+          });
+        });
+
+        videoStatus.textContent = '';
+      } catch (error) {
+        videoStatus.textContent = 'Kon de video’s niet laden. Controleer je API-sleutel en playlist-ID.';
+        console.error(error);
+      }
+    }
+
+    navItems.forEach(link => {
+      link.addEventListener('click', event => {
+        navItems.forEach(item => item.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+      });
+    });
+
+    loadYoutubeVideos();
+  </script>
+</body>
+</html>
