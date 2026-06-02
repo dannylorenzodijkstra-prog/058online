@@ -2,21 +2,21 @@
   "name": "058online",
   "short_name": "058online",
   "description": "Installable PWA voor lokaal nieuws, video's, agenda en contact in Friesland.",
-  "start_url": "/058online/",
+  "start_url": "/",
   "display": "standalone",
-  "scope": "/058online/",
+  "scope": "/",
   "theme_color": "#0B4F9A",
   "background_color": "#071b3e",
   "orientation": "portrait",
   "icons": [
     {
       "src": "Logo.png",
-      "sizes": "150x150",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
       "src": "Logo.png",
-      "sizes": "150x150",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
