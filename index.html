@@ -74,7 +74,7 @@
     }
 
     #sponsoren {
-      scroll-margin-top: 300px; /* Nu verlaagd naar 80px voor de pop-out layout */
+      scroll-margin-top: 320px; /* Precies ingesteld op 320px zoals gevraagd */
     }
 
     #contact {
@@ -315,6 +315,7 @@
       font: inherit;
       text-align: left;
       background-clip: padding-box;
+      position: relative;
     }
 
     .video-card:hover {
@@ -322,11 +323,58 @@
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
     }
 
-    .video-card img {
+    .thumbnail-wrapper {
+      position: relative;
       width: 100%;
       height: 138px;
+      overflow: hidden;
+    }
+
+    .thumbnail-wrapper img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .video-card:hover .thumbnail-wrapper img {
+      transform: scale(1.03);
+    }
+
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease;
+    }
+
+    /* Vorm en kleur exact ingesteld zoals de YouTube Play Button */
+    .play-icon {
+      width: 60px;
+      height: 42px;
+      border-radius: 12px;
+      background: #ff0000; /* YouTube Rood */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 4px; /* Centreert de driehoek visueel perfect */
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .video-card:hover .play-icon {
+      transform: scale(1.1);
+      background: #cc0000; /* Donkerder rood op hover */
+    }
+
+    .play-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff; /* Wit driehoekje */
     }
 
     .video-card-content {
@@ -397,12 +445,33 @@
       fill: currentColor;
     }
 
-    @media (max-width: 520px) {
-      body {
-        padding-bottom: 140px;
+    /* --- Monitor / Desktop Weergave (Responsive) --- */
+    @media (min-width: 800px) {
+      /* Maak de app-container breder op grote schermen */
+      .app-shell {
+        width: min(100%, 1200px);
       }
+
+      /* Maak de grote, uitgelichte video bovenaan een stuk hoger op een monitor */
+      .video-tile {
+        height: 480px;
+      }
+
+      /* Maak het navigatiemenu iets ruimer en laat het zweven */
+      .bottom-nav {
+        width: 700px;
+        bottom: 24px;
+        padding: 16px 24px;
+      }
+
+      /* Centreer het logo en de introtekst voor een mooie desktop-look */
       .hero {
-        padding: 24px;
+        padding: 40px;
+        text-align: center;
+      }
+      
+      .app-logo {
+        margin: 0 auto 24px auto;
       }
     }
   </style>
@@ -558,9 +627,17 @@
           const videoId = snippet.resourceId.videoId;
           const thumbnail = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url;
           const published = snippet.publishedAt ? snippet.publishedAt.slice(0, 10) : '';
+          
           return `
             <div class="video-card" data-video-id="${videoId}">
-              <img src="${thumbnail}" alt="${snippet.title}" loading="lazy" />
+              <div class="thumbnail-wrapper">
+                <img src="${thumbnail}" alt="${snippet.title}" loading="lazy" />
+                <div class="play-overlay">
+                  <div class="play-icon">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              </div>
               <div class="video-card-content">
                 <h3>${snippet.title}</h3>
                 <p>${published}</p>
@@ -574,11 +651,11 @@
         const modalIframe = document.getElementById('modal-iframe');
         const closeModal = document.getElementById('close-modal');
 
-        // Open pop-up bij klik op thumbnail (inclusief modestbranding=1)
+        // Open pop-up bij klik op thumbnail (inclusief modestbranding=1 en mute=1 voor directe start)
         videoList.querySelectorAll('.video-card').forEach(card => {
           card.addEventListener('click', function() {
             const videoId = this.dataset.videoId;
-            modalIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+            modalIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&modestbranding=1`;
             videoModal.classList.add('active');
           });
         });
