@@ -94,17 +94,10 @@
     .whatsapp-float:hover { transform: scale(1.1); }
     .whatsapp-icon { width: 32px; height: 32px; fill: currentColor; }
 
-    #sponsoren {
-      scroll-margin-top: 320px;
-    }
-
-    #contact {
-      scroll-margin-top: 20px;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    #sponsoren { scroll-margin-top: 320px; }
+    #contact { scroll-margin-top: 20px; }
+    
+    html { scroll-behavior: smooth; }
 
     .video-tile {
       grid-column: span 2;
@@ -185,9 +178,7 @@
       transform: scale(1.05);
     }
 
-    .contact-form button:hover {
-      opacity: 0.9;
-    }
+    .contact-form button:hover { opacity: 0.9; }
 
     :root {
       color-scheme: dark;
@@ -465,6 +456,63 @@
       fill: currentColor;
     }
 
+    /* --- PWA Installatie Banners --- */
+    .install-banner {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #071b3e;
+      padding: 14px 24px;
+      border-radius: 50px;
+      box-shadow: var(--shadow);
+      display: none; /* Standaard verborgen */
+      z-index: 1000;
+      font-weight: 700;
+      text-align: center;
+      width: max-content;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .install-banner:hover {
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    .ios-instruction {
+      position: fixed;
+      bottom: 90px; /* Boven je bottom-nav */
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(4, 22, 64, 0.96);
+      backdrop-filter: blur(18px);
+      color: var(--text);
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: none; /* Standaard verborgen */
+      z-index: 1000;
+      text-align: center;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: var(--shadow);
+    }
+    .ios-instruction p {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .ios-instruction button {
+      background: var(--accent);
+      color: #071b3e;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 10px;
+    }
+
     @media (min-width: 800px) {
       .app-shell {
         width: min(100%, 1200px);
@@ -595,6 +643,18 @@
     </div>
   </div>
 
+  <div id="android-install-banner" class="install-banner">
+    📲 Installeer 058online als App
+  </div>
+
+  <div id="ios-install-banner" class="ios-instruction">
+    <p><strong>Installeer 058online op je iPhone!</strong></p>
+    <p style="font-size: 0.9em; color: var(--muted);">
+      Tik onderin op het <strong>Deel</strong>-icoon <svg style="width:16px; height:16px; vertical-align:middle; fill:#fff;" viewBox="0 0 512 512"><path d="M398.1 233.2c0-1.2.2-2.4.2-3.6 0-35.3-28.7-64-64-64s-64 28.7-64 64c0 1.2.2 2.4.2 3.6L164.7 296c-13.6-10.7-30.8-17-49.4-17-44.2 0-80 35.8-80 80s35.8 80 80 80c18.6 0 35.8-6.3 49.4-17l105.8 62.8c-.1 1.2-.2 2.4-.2 3.6 0 35.3 28.7 64 64 64s64-28.7 64-64-28.7-64-64-64c-18.6 0-35.8 6.3-49.4 17L178.9 378.6c.1-1.2.2-2.4.2-3.6 0-1.2-.1-2.4-.2-3.6l105.8-62.8c13.6 10.7 30.8 17 49.4 17 35.3 0 64-28.7 64-64s-28.7-64-64-64z"/></svg> en kies <strong>'Zet op beginscherm'</strong>.
+    </p>
+    <button id="close-ios-banner">Begrepen</button>
+  </div>
+
   <script>
     const YOUTUBE_API_KEY = 'AIzaSyCZx5wTUj_i7pq0Q3XYbFlTGEG0Y4qIC9Y';
     const YOUTUBE_CHANNEL_ID = 'UCHVdIoiGJXXUrUM0HtP4_ZQ';
@@ -666,12 +726,10 @@
           `;
         }).join('');
 
-        // Variabelen voor de pop-out
         const videoModal = document.getElementById('video-modal');
         const modalIframe = document.getElementById('modal-iframe');
         const closeModal = document.getElementById('close-modal');
 
-        // Open pop-up bij klik op thumbnail (inclusief modestbranding=1 en mute=1 voor directe start)
         videoList.querySelectorAll('.video-card').forEach(card => {
           card.addEventListener('click', function() {
             const videoId = this.dataset.videoId;
@@ -680,16 +738,13 @@
           });
         });
 
-        // Functie om de video te sluiten
         function closeVideo() {
-          modalIframe.src = ''; // Dit stopt het afspelen op de achtergrond
+          modalIframe.src = '';
           videoModal.classList.remove('active');
         }
 
-        // Sluit bij klik op het kruisje
         closeModal.addEventListener('click', closeVideo);
 
-        // Sluit ook als je naast de video op de donkere achtergrond klikt
         videoModal.addEventListener('click', (e) => {
           if (e.target === videoModal || e.target.classList.contains('video-modal-wrapper')) {
             closeVideo();
@@ -711,6 +766,58 @@
     });
 
     loadYoutubeVideos();
+
+    // --- PWA Installatie Logica ---
+    let deferredPrompt;
+    const androidBanner = document.getElementById('android-install-banner');
+    const iosBanner = document.getElementById('ios-install-banner');
+    const closeIosBanner = document.getElementById('close-ios-banner');
+
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    if (!isStandalone) {
+      // 1. Android Logica
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        androidBanner.style.display = 'block';
+      });
+
+      androidBanner.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            console.log('App succesvol geïnstalleerd');
+          }
+          deferredPrompt = null;
+          androidBanner.style.display = 'none';
+        }
+      });
+
+      // 2. iOS Logica
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      
+      if (isIOS) {
+        if (!localStorage.getItem('ios-pwa-dismissed')) {
+          iosBanner.style.display = 'block';
+        }
+      }
+
+      closeIosBanner.addEventListener('click', () => {
+        iosBanner.style.display = 'none';
+        localStorage.setItem('ios-pwa-dismissed', 'true');
+      });
+    }
+
+    // Service Worker Registratie (Vereist voor de installatie-prompts)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('Service Worker registratie mislukt:', err);
+        });
+      });
+    }
   </script>
 </body>
 </html>
