@@ -8,178 +8,6 @@
   <meta name="theme-color" content="#0B4F9A" />
   <title>058online</title>
   <style>
-    /* --- Pop-out Video Speler --- */
-    .video-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(4, 20, 54, 0.9);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .video-modal.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .video-modal-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    .video-modal-content {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* Zorgt voor de perfecte 16:9 verhouding */
-      background: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .video-modal-content iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: -45px;
-      right: 0;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 2.5rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s;
-    }
-
-    .close-modal:hover {
-      color: var(--accent);
-    }
-
-    /* --- WhatsApp Knop --- */
-    .whatsapp-float {
-      position: fixed;
-      width: 56px;
-      height: 56px;
-      bottom: 90px;
-      right: 20px;
-      background-color: #25d366;
-      color: #FFF;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 100;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-    }
-    .whatsapp-float:hover { transform: scale(1.1); }
-    .whatsapp-icon { width: 32px; height: 32px; fill: currentColor; }
-
-    #sponsoren { scroll-margin-top: 320px; }
-    #contact { scroll-margin-top: 20px; }
-    
-    html { scroll-behavior: smooth; }
-
-    .video-tile {
-      grid-column: span 2;
-      height: 250px;
-      padding: 0;
-    }
-
-    .video-tile iframe {
-      width: 100%;
-      height: 100%;
-    }
-
-    .tile {
-      overflow: hidden;
-      position: relative;
-    }
-
-    .tile iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .app-logo {
-      width: 150px;
-      height: auto;
-      margin-bottom: 16px;
-      border-radius: 12px;
-      display: block;
-    }
-
-    .contact-form {
-      display: grid;
-      gap: 12px;
-    }
-
-    .contact-form input, 
-    .contact-form textarea {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 14px;
-      border-radius: 16px;
-      color: var(--text);
-      font-family: inherit;
-    }
-
-    .contact-form button {
-      background: var(--accent);
-      color: #071b3e;
-      font-weight: 700;
-      border: none;
-      padding: 14px;
-      border-radius: 16px;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .sponsor-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 16px;
-      align-items: center;
-    }
-
-    .sponsor-logo {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.2s;
-    }
-
-    .sponsor-logo:hover {
-      transform: scale(1.05);
-    }
-
-    .contact-form button:hover { opacity: 0.9; }
-
     :root {
       color-scheme: dark;
       --bg: #071b3e;
@@ -192,365 +20,127 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; background: radial-gradient(circle at top, #0e5bbf 0%, #071b3e 52%, #020814 100%); color: var(--text); scroll-behavior: smooth; }
+    body { display: grid; place-items: center; padding: 24px 16px 120px; }
 
-    html, body {
-      min-height: 100%;
-      background: radial-gradient(circle at top, #0e5bbf 0%, #071b3e 52%, #020814 100%);
-      color: var(--text);
-    }
+    .app-shell { width: min(100%, 760px); display: grid; gap: 22px; }
 
-    body {
-      display: grid;
-      place-items: center;
-      padding: 24px 16px 100px;
-    }
+    /* --- Scroll Margins voor navigatie --- */
+    #sponsoren, #contact, #doneren, #webshop { scroll-margin-top: 20px; }
 
-    .app-shell {
-      width: min(100%, 760px);
-      display: grid;
-      gap: 22px;
-    }
+    /* --- Componenten Algemeen --- */
+    .hero { padding: 28px 28px 26px; border-radius: 32px; background: linear-gradient(180deg, rgba(11, 79, 154, 0.95), rgba(4, 20, 54, 0.92)); box-shadow: var(--shadow); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.03; letter-spacing: -0.04em; }
+    .hero p { margin-top: 16px; color: var(--muted); font-size: 1rem; line-height: 1.8; }
+    .app-logo { width: 150px; height: auto; margin-bottom: 16px; border-radius: 12px; display: block; }
+    
+    .cards { display: grid; gap: 18px; }
+    .card { border-radius: 28px; background: var(--surface); padding: 22px; backdrop-filter: blur(18px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
+    .card strong { display: block; margin-bottom: 10px; font-size: 1rem; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; }
+    .card h2 { font-size: 1.4rem; margin-bottom: 10px; line-height: 1.2; }
+    .card p { color: var(--muted); line-height: 1.75; }
 
-    .hero {
-      padding: 28px 28px 26px;
-      border-radius: 32px;
-      background: linear-gradient(180deg, rgba(11, 79, 154, 0.95), rgba(4, 20, 54, 0.92));
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
+    /* --- Video's & Tiles --- */
+    .card.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+    .tile { border-radius: 24px; padding: 18px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.08); min-height: 130px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; position: relative; }
+    .video-tile { grid-column: span 2; height: 250px; padding: 0; }
+    .video-tile iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    
+    .section-title { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+    .section-title h2 { font-size: 1.55rem; margin: 0; }
+    .section-description { color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+    
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .video-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.2s ease, box-shadow 0.2s ease; display: grid; gap: 12px; cursor: pointer; text-align: left; }
+    .video-card:hover { transform: translateY(-3px); box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18); }
+    .thumbnail-wrapper { position: relative; width: 100%; height: 138px; overflow: hidden; }
+    .thumbnail-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+    .video-card:hover .thumbnail-wrapper img { transform: scale(1.03); }
+    
+    .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.1); transition: background 0.3s ease; }
+    .play-icon { width: 60px; height: 42px; border-radius: 12px; background: #ff0000; display: flex; align-items: center; justify-content: center; padding-left: 4px; box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: transform 0.2s ease, background 0.2s ease; }
+    .video-card:hover .play-icon { transform: scale(1.1); background: #cc0000; }
+    .play-icon svg { width: 20px; height: 20px; fill: #ffffff; }
+    .video-card-content { padding: 16px; display: grid; gap: 10px; }
+    .video-card h3 { font-size: 1rem; line-height: 1.35; margin: 0; }
+    .video-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .video-status { margin-top: 12px; color: var(--muted); font-size: 0.95rem; }
 
-    .hero h1 {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.03;
-      letter-spacing: -0.04em;
-    }
+    /* --- Pop-out Video Speler --- */
+    .video-modal { position: fixed; inset: 0; background: rgba(4, 20, 54, 0.9); backdrop-filter: blur(8px); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .video-modal.active { opacity: 1; pointer-events: auto; }
+    .video-modal-wrapper { position: relative; width: 100%; max-width: 800px; }
+    .video-modal-content { position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.6); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .video-modal-content iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .close-modal { position: absolute; top: -45px; right: 0; background: none; border: none; color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
+    .close-modal:hover { color: var(--accent); }
 
-    .hero p {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.8;
-    }
+    /* --- Webshop Sectie --- */
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-top: 15px; }
+    .shop-item { background: rgba(255, 255, 255, 0.05); padding: 16px; border-radius: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.08); }
+    .shop-item img { width: 100%; border-radius: 8px; margin-bottom: 12px; object-fit: cover; }
+    .shop-item h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text); }
+    .shop-item p { color: var(--accent); font-weight: bold; margin-bottom: 10px; }
+    .shop-btn { display: block; background: var(--accent); color: #071b3e; padding: 10px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: opacity 0.2s; }
+    .shop-btn:hover { opacity: 0.9; }
 
-    .cards {
-      display: grid;
-      gap: 18px;
-    }
+    /* --- Sponsoren --- */
+    .sponsor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 16px; align-items: center; }
+    .sponsor-logo { width: 100%; height: auto; border-radius: 12px; background: rgba(255, 255, 255, 0.05); padding: 10px; border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.2s; }
+    .sponsor-logo:hover { transform: scale(1.05); }
 
-    .card {
-      border-radius: 28px;
-      background: var(--surface);
-      padding: 22px;
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
+    /* --- Formulieren & Knoppen --- */
+    .contact-form { display: grid; gap: 12px; }
+    .contact-form input, .contact-form textarea { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 14px; border-radius: 16px; color: var(--text); font-family: inherit; }
+    .contact-form button { background: var(--accent); color: #071b3e; font-weight: 700; border: none; padding: 14px; border-radius: 16px; cursor: pointer; transition: opacity 0.2s; }
+    .contact-form button:hover { opacity: 0.9; }
+    
+    .donate-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #ff4757; color: #fff; font-weight: 700; text-decoration: none; padding: 14px 24px; border-radius: 16px; margin-top: 15px; transition: transform 0.2s; }
+    .donate-btn:hover { transform: scale(1.02); }
+    .donate-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
-    .card strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 1rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
+    /* --- Bottom Nav (Aangepast voor 5 items) --- */
+    .bottom-nav { position: fixed; inset: auto 14px 14px; left: 50%; transform: translateX(-50%); width: min(100%, 560px); border-radius: 28px; background: rgba(4, 22, 64, 0.96); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.08); box-shadow: var(--shadow); padding: 12px 16px; z-index: 20; }
+    .bottom-nav nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+    .nav-item { display: grid; gap: 6px; place-items: center; color: var(--muted); text-decoration: none; font-size: 0.75rem; padding: 5px 0; transition: color 0.2s ease, transform 0.2s ease; }
+    .nav-item:hover, .nav-item.active { color: var(--text); transform: translateY(-1px); }
+    .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
 
-    .card h2 {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      line-height: 1.2;
-    }
+    /* --- WhatsApp Knop --- */
+    .whatsapp-float { position: fixed; width: 56px; height: 56px; bottom: 90px; right: 20px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 100; text-decoration: none; transition: transform 0.3s ease; }
+    .whatsapp-float:hover { transform: scale(1.1); }
+    .whatsapp-icon { width: 32px; height: 32px; fill: currentColor; }
 
-    .card p {
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .card.grid {
-      display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    }
-
-    .tile {
-      border-radius: 24px;
-      padding: 18px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      min-height: 130px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .section-title h2 {
-      font-size: 1.55rem;
-      margin: 0;
-    }
-
-    .section-description {
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .video-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 24px;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: grid;
-      gap: 12px;
-      cursor: pointer;
-      border: none;
-      font: inherit;
-      text-align: left;
-      background-clip: padding-box;
-      position: relative;
-    }
-
-    .video-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
-    }
-
-    .thumbnail-wrapper {
-      position: relative;
-      width: 100%;
-      height: 138px;
-      overflow: hidden;
-    }
-
-    .thumbnail-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    .video-card:hover .thumbnail-wrapper img {
-      transform: scale(1.03);
-    }
-
-    .play-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.1);
-      transition: background 0.3s ease;
-    }
-
-    .play-icon {
-      width: 60px;
-      height: 42px;
-      border-radius: 12px;
-      background: #ff0000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-left: 4px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .video-card:hover .play-icon {
-      transform: scale(1.1);
-      background: #cc0000;
-    }
-
-    .play-icon svg {
-      width: 20px;
-      height: 20px;
-      fill: #ffffff;
-    }
-
-    .video-card-content {
-      padding: 16px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .video-card h3 {
-      font-size: 1rem;
-      line-height: 1.35;
-      margin: 0;
-    }
-
-    .video-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .video-status {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      inset: auto 14px 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(100%, 560px);
-      border-radius: 28px;
-      background: rgba(4, 22, 64, 0.96);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-      padding: 12px 16px;
-      z-index: 20;
-    }
-
-    .bottom-nav nav {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .nav-item {
-      display: grid;
-      gap: 6px;
-      place-items: center;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.86rem;
-      padding: 10px 0;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-
-    .nav-item:hover,
-    .nav-item.active {
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-
-    .nav-item svg {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-    }
-
-    /* --- PWA Installatie Banners --- */
-    .install-banner {
-      position: fixed;
-      bottom: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent);
-      color: #071b3e;
-      padding: 14px 24px;
-      border-radius: 50px;
-      box-shadow: var(--shadow);
-      display: none; /* Standaard verborgen */
-      z-index: 1000;
-      font-weight: 700;
-      text-align: center;
-      width: max-content;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .install-banner:hover {
-      transform: translateX(-50%) scale(1.05);
-    }
-
-    .ios-instruction {
-      position: fixed;
-      bottom: 90px; /* Boven je bottom-nav */
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(4, 22, 64, 0.96);
-      backdrop-filter: blur(18px);
-      color: var(--text);
-      padding: 20px;
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: none; /* Standaard verborgen */
-      z-index: 1000;
-      text-align: center;
-      width: 90%;
-      max-width: 350px;
-      box-shadow: var(--shadow);
-    }
-    .ios-instruction p {
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-    .ios-instruction button {
-      background: var(--accent);
-      color: #071b3e;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
-      width: 100%;
-      margin-top: 10px;
-    }
+    /* --- PWA Banners --- */
+    .install-banner { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #071b3e; padding: 14px 24px; border-radius: 50px; box-shadow: var(--shadow); display: none; z-index: 1000; font-weight: 700; text-align: center; width: max-content; cursor: pointer; transition: transform 0.2s; }
+    .install-banner:hover { transform: translateX(-50%) scale(1.05); }
+    .ios-instruction { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: rgba(4, 22, 64, 0.96); backdrop-filter: blur(18px); color: var(--text); padding: 20px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); display: none; z-index: 1000; text-align: center; width: 90%; max-width: 350px; box-shadow: var(--shadow); }
+    .ios-instruction p { margin-bottom: 10px; line-height: 1.5; }
+    .ios-instruction button { background: var(--accent); color: #071b3e; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
 
     @media (min-width: 800px) {
-      .app-shell {
-        width: min(100%, 1200px);
-      }
-      .video-tile {
-        height: 480px;
-      }
-      .bottom-nav {
-        width: 700px;
-        bottom: 24px;
-        padding: 16px 24px;
-      }
-      .hero {
-        padding: 40px;
-        text-align: center;
-      }
-      .app-logo {
-        margin: 0 auto 24px auto;
-      }
-      .whatsapp-float {
-        bottom: 40px;
-        right: 40px;
-      }
+      .app-shell { width: min(100%, 1200px); }
+      .video-tile { height: 480px; }
+      .bottom-nav { width: 700px; bottom: 24px; padding: 16px 24px; }
+      .hero { padding: 40px; text-align: center; }
+      .app-logo { margin: 0 auto 24px auto; }
+      .whatsapp-float { bottom: 40px; right: 40px; }
+      .install-banner, .ios-instruction { bottom: 110px; }
     }
   </style>
 </head>
 <body>
+
   <div class="app-shell">
     <section class="hero">
       <img src="Logo.png" alt="058online Logo" class="app-logo">
-      <h3></h3>
       <p>Bekijk onze nieuwste video's en blijf op de hoogte van al onze items.</p>
     </section>
 
     <section class="cards">
       <article class="card" id="nieuws">
         <strong>Wij zoeken versterking!</strong>
-        <h2></h2>
         <p>Wij zoeken enthousiaste vrijwilligers voor video's en nieuws uit Leeuwarden. Help jij mee onze stad in beeld te brengen? Neem dan snel contact met ons op!</p>
       </article>
 
@@ -564,19 +154,41 @@
         <div class="section-title">
           <div>
             <strong>Video's</strong>
-            <h2></h2>
+            <h2>Onze laatste items</h2>
           </div>
         </div>
-        <p class="section-description">Bekijk onze video's.</p>
-
         <div id="video-list" class="video-grid"></div>
         <div id="video-status" class="video-status">Video’s worden geladen...</div>
       </section>
 
+      <article class="card" id="webshop">
+        <strong>Shop</strong>
+        <h2></h2>
+        <p>Support 058online in stijl! Scoor ons exclusieve T-shirt en steun direct onze redactie.</p>
+        
+        <div class="shop-grid">
+          <div class="shop-item">
+            <img src="merchandise/t-shirt-voorkant-high.webp" alt="T-shirt">
+            <h3></h3>
+            <p></p>
+            <a href="https://www.franabliss.nl/c-7594242/058-online/" class="shop-btn" target="_blank" rel="noopener noreferrer">bestellen</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" id="doneren">
+        <strong>Steun 058online</strong>
+        <h2></h2>
+        <p>Waardeer je onze content? Met een kleine bijdrage help je ons platform draaiende te houden.</p>
+        <a href="https://www.ing.nl/payreq/m/?trxid=ouaGkPHHAQdIL7wrqeVHostuq4dIS2pp" target="_blank" class="donate-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Doe een donatie
+        </a>
+      </article>
+
       <article class="card" id="sponsoren">
         <strong>Maak 058online mede mogelijk!</strong>
-        <h2></h2>
-        <p style="margin-bottom: 20px;">Wij werken samen met geweldige partners en staan altijd open voor nieuwe samenwerkingen. Wil jij ook onderdeel worden van ons platform? Neem gerust contact met ons op om de mogelijkheden te bespreken.
+        <p style="margin-bottom: 20px;">Wij werken samen met geweldige partners en staan altijd open voor nieuwe samenwerkingen. Neem gerust contact met ons op om de mogelijkheden te bespreken.</p>
         <div class="sponsor-grid">
           <a href="https://detrilker.nl/" target="_blank" rel="noopener noreferrer">
             <img src="Sponsoren/De_Trilker.webp" alt="Sponsor 1" class="sponsor-logo">
@@ -592,9 +204,7 @@
 
       <article class="card" id="contact">
         <strong>Contact</strong>
-        <h2></h2>
         <p style="margin-bottom: 20px;">Stuur je vragen, tips of feedback rechtstreeks naar onze redactie.</p>
-        
         <form action="https://formspree.io/f/xredvdoz" method="POST" class="contact-form">
           <input type="text" name="name" placeholder="Je naam" required>
           <input type="email" name="email" placeholder="Je e-mailadres" required>
@@ -608,21 +218,23 @@
   <div class="bottom-nav">
     <nav>
       <a class="nav-item active" href="#">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4V6zm0 5h10v2H4v-2zm0 5h16v2H4v-2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         Home
       </a>
       <a class="nav-item" href="#videos">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm10 5l-5 3V8l5 3z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm10 5l-5 3V8l5 3z"/></svg>
         Video's
       </a>
+      <a class="nav-item" href="#webshop">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        Shop
+      </a>
       <a class="nav-item" href="#sponsoren">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
         Sponsoren
       </a>
       <a class="nav-item" href="#contact">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         Contact
       </a>
     </nav>
@@ -646,7 +258,6 @@
   <div id="android-install-banner" class="install-banner">
     📲 Installeer 058online als App
   </div>
-
   <div id="ios-install-banner" class="ios-instruction">
     <p><strong>Installeer 058online op je iPhone!</strong></p>
     <p style="font-size: 0.9em; color: var(--muted);">
@@ -656,13 +267,13 @@
   </div>
 
   <script>
-    const YOUTUBE_API_KEY = 'AIzaSyCZx5wTUj_i7pq0Q3XYbFlTGEG0Y4qIC9Y';
+    // --- 1. YouTube Video Inladen ---
+    const YOUTUBE_API_KEY = 'AIzaSyCZx5wTUj_i7pq0Q3XYbFlTGEG0Y4qIC9Y'; // Zorg dat dit klopt!
     const YOUTUBE_CHANNEL_ID = 'UCHVdIoiGJXXUrUM0HtP4_ZQ';
     const YOUTUBE_PLAYLIST_ID = '';
 
     const videoList = document.getElementById('video-list');
     const videoStatus = document.getElementById('video-status');
-    const navItems = document.querySelectorAll('.nav-item');
 
     async function getUploadPlaylistId(channelId) {
       const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${YOUTUBE_API_KEY}`;
@@ -674,38 +285,24 @@
 
     async function loadYoutubeVideos() {
       try {
-        if (YOUTUBE_API_KEY.includes('YOUR_API_KEY') || !YOUTUBE_API_KEY) {
-          videoStatus.textContent = 'Vul je YouTube API-sleutel in het script in om video’s te laden.';
-          return;
-        }
-
         let playlistId = YOUTUBE_PLAYLIST_ID;
         if (!playlistId && YOUTUBE_CHANNEL_ID) {
           playlistId = await getUploadPlaylistId(YOUTUBE_CHANNEL_ID);
-        }
-
-        if (!playlistId) {
-          videoStatus.textContent = 'Voeg een playlist-ID of channel-ID toe in het script om video’s te laden.';
-          return;
         }
 
         const apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=8&playlistId=${playlistId}&key=${YOUTUBE_API_KEY}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.error?.message || 'Fout bij het ophalen van video’s.');
-        }
-
         if (!data.items?.length) {
-          videoStatus.textContent = 'Er zijn momenteel geen video’s beschikbaar in deze playlist.';
+          videoStatus.textContent = 'Er zijn momenteel geen video’s beschikbaar.';
           return;
         }
 
         videoList.innerHTML = data.items.map(item => {
           const snippet = item.snippet;
           const videoId = snippet.resourceId.videoId;
-          const thumbnail = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url;
+          const thumbnail = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url;
           const published = snippet.publishedAt ? snippet.publishedAt.slice(0, 10) : '';
           
           return `
@@ -713,9 +310,7 @@
               <div class="thumbnail-wrapper">
                 <img src="${thumbnail}" alt="${snippet.title}" loading="lazy" />
                 <div class="play-overlay">
-                  <div class="play-icon">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  </div>
+                  <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                 </div>
               </div>
               <div class="video-card-content">
@@ -726,10 +321,10 @@
           `;
         }).join('');
 
+        // Modal triggers koppelen na het inladen van de video's
         const videoModal = document.getElementById('video-modal');
         const modalIframe = document.getElementById('modal-iframe');
-        const closeModal = document.getElementById('close-modal');
-
+        
         videoList.querySelectorAll('.video-card').forEach(card => {
           card.addEventListener('click', function() {
             const videoId = this.dataset.videoId;
@@ -738,26 +333,30 @@
           });
         });
 
-        function closeVideo() {
-          modalIframe.src = '';
-          videoModal.classList.remove('active');
-        }
-
-        closeModal.addEventListener('click', closeVideo);
-
-        videoModal.addEventListener('click', (e) => {
-          if (e.target === videoModal || e.target.classList.contains('video-modal-wrapper')) {
-            closeVideo();
-          }
-        });
-
         videoStatus.textContent = '';
       } catch (error) {
-        videoStatus.textContent = 'Kon de video’s niet laden. Controleer je API-sleutel en playlist-ID.';
+        videoStatus.textContent = 'Kon de video’s niet laden.';
         console.error(error);
       }
     }
+    loadYoutubeVideos();
 
+    // --- 2. Pop-out Video Sluiten ---
+    const videoModal = document.getElementById('video-modal');
+    const modalIframe = document.getElementById('modal-iframe');
+    const closeModal = document.getElementById('close-modal');
+
+    function closeVideo() {
+      modalIframe.src = '';
+      videoModal.classList.remove('active');
+    }
+    closeModal.addEventListener('click', closeVideo);
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal || e.target.classList.contains('video-modal-wrapper')) closeVideo();
+    });
+
+    // --- 3. Navigatie Actieve Status ---
+    const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(link => {
       link.addEventListener('click', event => {
         navItems.forEach(item => item.classList.remove('active'));
@@ -765,18 +364,15 @@
       });
     });
 
-    loadYoutubeVideos();
-
-    // --- PWA Installatie Logica ---
+    // --- 4. PWA Installatie Logica ---
     let deferredPrompt;
     const androidBanner = document.getElementById('android-install-banner');
     const iosBanner = document.getElementById('ios-install-banner');
     const closeIosBanner = document.getElementById('close-ios-banner');
-
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
     if (!isStandalone) {
-      // 1. Android Logica
+      // Android
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
@@ -787,21 +383,16 @@
         if (deferredPrompt) {
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            console.log('App succesvol geïnstalleerd');
-          }
+          if (outcome === 'accepted') console.log('App geïnstalleerd');
           deferredPrompt = null;
           androidBanner.style.display = 'none';
         }
       });
 
-      // 2. iOS Logica
+      // iOS
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      
-      if (isIOS) {
-        if (!localStorage.getItem('ios-pwa-dismissed')) {
-          iosBanner.style.display = 'block';
-        }
+      if (isIOS && !localStorage.getItem('ios-pwa-dismissed')) {
+        iosBanner.style.display = 'block';
       }
 
       closeIosBanner.addEventListener('click', () => {
@@ -810,12 +401,10 @@
       });
     }
 
-    // Service Worker Registratie (Vereist voor de installatie-prompts)
+    // Service Worker voor de PWA
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => {
-          console.log('Service Worker registratie mislukt:', err);
-        });
+        navigator.serviceWorker.register('/sw.js').catch(err => console.log('Service Worker niet geregistreerd:', err));
       });
     }
   </script>
