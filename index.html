@@ -26,10 +26,8 @@
 
     .app-shell { width: min(100%, 760px); display: grid; gap: 22px; }
 
-    /* --- Scroll Margins voor navigatie --- */
     #sponsoren, #contact, #doneren, #webshop { scroll-margin-top: 20px; }
 
-    /* --- Componenten Algemeen --- */
     .hero { padding: 28px 28px 26px; border-radius: 32px; background: linear-gradient(180deg, rgba(11, 79, 154, 0.95), rgba(4, 20, 54, 0.92)); box-shadow: var(--shadow); border: 1px solid rgba(255, 255, 255, 0.08); }
     .hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.03; letter-spacing: -0.04em; }
     .hero p { margin-top: 16px; color: var(--muted); font-size: 1rem; line-height: 1.8; }
@@ -41,7 +39,6 @@
     .card h2 { font-size: 1.4rem; margin-bottom: 10px; line-height: 1.2; }
     .card p { color: var(--muted); line-height: 1.75; }
 
-    /* --- Video's & Tiles --- */
     .card.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
     .tile { border-radius: 24px; padding: 18px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.08); min-height: 130px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; position: relative; }
     .video-tile { grid-column: span 2; height: 250px; padding: 0; }
@@ -67,7 +64,6 @@
     .video-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
     .video-status { margin-top: 12px; color: var(--muted); font-size: 0.95rem; }
 
-    /* --- Pop-out Video Speler --- */
     .video-modal { position: fixed; inset: 0; background: rgba(4, 20, 54, 0.9); backdrop-filter: blur(8px); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .video-modal.active { opacity: 1; pointer-events: auto; }
     .video-modal-wrapper { position: relative; width: 100%; max-width: 800px; }
@@ -76,7 +72,6 @@
     .close-modal { position: absolute; top: -45px; right: 0; background: none; border: none; color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1; transition: color 0.2s; }
     .close-modal:hover { color: var(--accent); }
 
-    /* --- Webshop Sectie --- */
     .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-top: 15px; }
     .shop-item { background: rgba(255, 255, 255, 0.05); padding: 16px; border-radius: 16px; text-align: center; border: 1px solid rgba(255,255,255,0.08); }
     .shop-item img { width: 100%; border-radius: 8px; margin-bottom: 12px; object-fit: cover; }
@@ -85,12 +80,10 @@
     .shop-btn { display: block; background: var(--accent); color: #071b3e; padding: 10px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: opacity 0.2s; }
     .shop-btn:hover { opacity: 0.9; }
 
-    /* --- Sponsoren --- */
     .sponsor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 16px; align-items: center; }
     .sponsor-logo { width: 100%; height: auto; border-radius: 12px; background: rgba(255, 255, 255, 0.05); padding: 10px; border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.2s; }
     .sponsor-logo:hover { transform: scale(1.05); }
 
-    /* --- Formulieren & Knoppen --- */
     .contact-form { display: grid; gap: 12px; }
     .contact-form input, .contact-form textarea { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 14px; border-radius: 16px; color: var(--text); font-family: inherit; }
     .contact-form button { background: var(--accent); color: #071b3e; font-weight: 700; border: none; padding: 14px; border-radius: 16px; cursor: pointer; transition: opacity 0.2s; }
@@ -100,24 +93,28 @@
     .donate-btn:hover { transform: scale(1.02); }
     .donate-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
-    /* --- Bottom Nav (Aangepast voor 5 items) --- */
     .bottom-nav { position: fixed; inset: auto 14px 14px; left: 50%; transform: translateX(-50%); width: min(100%, 560px); border-radius: 28px; background: rgba(4, 22, 64, 0.96); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.08); box-shadow: var(--shadow); padding: 12px 16px; z-index: 20; }
     .bottom-nav nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
     .nav-item { display: grid; gap: 6px; place-items: center; color: var(--muted); text-decoration: none; font-size: 0.75rem; padding: 5px 0; transition: color 0.2s ease, transform 0.2s ease; }
     .nav-item:hover, .nav-item.active { color: var(--text); transform: translateY(-1px); }
     .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
 
-    /* --- WhatsApp Knop --- */
     .whatsapp-float { position: fixed; width: 56px; height: 56px; bottom: 90px; right: 20px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 100; text-decoration: none; transition: transform 0.3s ease; }
     .whatsapp-float:hover { transform: scale(1.1); }
     .whatsapp-icon { width: 32px; height: 32px; fill: currentColor; }
 
-    /* --- PWA Banners --- */
+    /* PWA Installatie Banners */
     .install-banner { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #071b3e; padding: 14px 24px; border-radius: 50px; box-shadow: var(--shadow); display: none; z-index: 1000; font-weight: 700; text-align: center; width: max-content; cursor: pointer; transition: transform 0.2s; }
     .install-banner:hover { transform: translateX(-50%) scale(1.05); }
-    .ios-instruction { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: rgba(4, 22, 64, 0.96); backdrop-filter: blur(18px); color: var(--text); padding: 20px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); display: none; z-index: 1000; text-align: center; width: 90%; max-width: 350px; box-shadow: var(--shadow); }
-    .ios-instruction p { margin-bottom: 10px; line-height: 1.5; }
-    .ios-instruction button { background: var(--accent); color: #071b3e; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+
+    /* iOS Banner Specifiek: Terug naar de donkere thema-kleuren en Flexbox geforceerd */
+    .ios-install-banner { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; background: #1a2a4a; backdrop-filter: blur(18px); color: var(--text); padding: 16px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: var(--shadow); z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; display: none; }
+    /* Dit is cruciaal: als .show is toegevoegd in JS, forceert hij flexbox, geen block */
+    .ios-install-banner.show { display: flex !important; align-items: center; gap: 12px; text-align: left; }
+    .ios-install-banner-text { flex: 1; }
+    .ios-install-banner-text p { margin: 0; line-height: 1.4; }
+    .ios-install-banner-close { background: none; border: none; font-size: 24px; color: var(--muted); cursor: pointer; padding: 0 0 0 10px; line-height: 1; transition: color 0.2s; }
+    .ios-install-banner-close:hover { color: var(--accent); }
 
     @media (min-width: 800px) {
       .app-shell { width: min(100%, 1200px); }
@@ -126,7 +123,7 @@
       .hero { padding: 40px; text-align: center; }
       .app-logo { margin: 0 auto 24px auto; }
       .whatsapp-float { bottom: 40px; right: 40px; }
-      .install-banner, .ios-instruction { bottom: 110px; }
+      .install-banner, .ios-install-banner { bottom: 110px; }
     }
   </style>
 </head>
@@ -255,157 +252,130 @@
     </div>
   </div>
 
-  <div id="android-install-banner" class="install-banner">
-    📲 Installeer 058online als App
-  </div>
-  <div id="ios-install-banner" class="ios-instruction">
-    <p><strong>Installeer 058online op je iPhone!</strong></p>
-    <p style="font-size: 0.9em; color: var(--muted);">
-      Tik onderin op het <strong>Deel</strong>-icoon <svg style="width:16px; height:16px; vertical-align:middle; fill:#fff;" viewBox="0 0 512 512"><path d="M398.1 233.2c0-1.2.2-2.4.2-3.6 0-35.3-28.7-64-64-64s-64 28.7-64 64c0 1.2.2 2.4.2 3.6L164.7 296c-13.6-10.7-30.8-17-49.4-17-44.2 0-80 35.8-80 80s35.8 80 80 80c18.6 0 35.8-6.3 49.4-17l105.8 62.8c-.1 1.2-.2 2.4-.2 3.6 0 35.3 28.7 64 64 64s64-28.7 64-64-28.7-64-64-64c-18.6 0-35.8 6.3-49.4 17L178.9 378.6c.1-1.2.2-2.4.2-3.6 0-1.2-.1-2.4-.2-3.6l105.8-62.8c13.6 10.7 30.8 17 49.4 17 35.3 0 64-28.7 64-64s-28.7-64-64-64z"/></svg> en kies <strong>'Zet op beginscherm'</strong>.
-    </p>
-    <button id="close-ios-banner">Begrepen</button>
+  <div id="android-install-banner" class="install-banner">058online als App?</div>
+
+  <!-- Aangepaste iOS Banner HTML structuur -->
+  <div id="ios-install-banner" class="ios-install-banner">
+    <div style="font-size: 24px; padding-top: 4px;">📲</div>
+    <div id="ios-banner-text" class="ios-install-banner-text"></div>
+    <button id="close-ios-banner" class="ios-install-banner-close" aria-label="Sluit melding">&times;</button>
   </div>
 
   <script>
-    // --- 1. YouTube Video Inladen ---
-    const YOUTUBE_API_KEY = 'AIzaSyCZx5wTUj_i7pq0Q3XYbFlTGEG0Y4qIC9Y'; // Zorg dat dit klopt!
+    // --- YouTube Functionaliteit ---
+    const YOUTUBE_API_KEY = 'AIzaSyCZx5wTUj_i7pq0Q3XYbFlTGEG0Y4qIC9Y';
     const YOUTUBE_CHANNEL_ID = 'UCHVdIoiGJXXUrUM0HtP4_ZQ';
-    const YOUTUBE_PLAYLIST_ID = '';
-
-    const videoList = document.getElementById('video-list');
-    const videoStatus = document.getElementById('video-status');
 
     async function getUploadPlaylistId(channelId) {
       const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${YOUTUBE_API_KEY}`;
       const response = await fetch(url);
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error?.message || 'Kan kanaalgegevens niet ophalen.');
       return data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
     }
 
     async function loadYoutubeVideos() {
+      const videoList = document.getElementById('video-list');
+      const videoStatus = document.getElementById('video-status');
       try {
-        let playlistId = YOUTUBE_PLAYLIST_ID;
-        if (!playlistId && YOUTUBE_CHANNEL_ID) {
-          playlistId = await getUploadPlaylistId(YOUTUBE_CHANNEL_ID);
-        }
-
+        const playlistId = await getUploadPlaylistId(YOUTUBE_CHANNEL_ID);
         const apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=8&playlistId=${playlistId}&key=${YOUTUBE_API_KEY}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        if (!data.items?.length) {
-          videoStatus.textContent = 'Er zijn momenteel geen video’s beschikbaar.';
-          return;
-        }
+        if (!data.items?.length) { videoStatus.textContent = 'Geen video’s beschikbaar.'; return; }
 
         videoList.innerHTML = data.items.map(item => {
           const snippet = item.snippet;
           const videoId = snippet.resourceId.videoId;
-          const thumbnail = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url;
-          const published = snippet.publishedAt ? snippet.publishedAt.slice(0, 10) : '';
-          
+          const thumbnail = snippet.thumbnails?.high?.url;
           return `
             <div class="video-card" data-video-id="${videoId}">
               <div class="thumbnail-wrapper">
                 <img src="${thumbnail}" alt="${snippet.title}" loading="lazy" />
-                <div class="play-overlay">
-                  <div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                </div>
+                <div class="play-overlay"><div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
               </div>
-              <div class="video-card-content">
-                <h3>${snippet.title}</h3>
-                <p>${published}</p>
-              </div>
+              <div class="video-card-content"><h3>${snippet.title}</h3></div>
             </div>
           `;
         }).join('');
 
-        // Modal triggers koppelen na het inladen van de video's
-        const videoModal = document.getElementById('video-modal');
-        const modalIframe = document.getElementById('modal-iframe');
-        
         videoList.querySelectorAll('.video-card').forEach(card => {
           card.addEventListener('click', function() {
-            const videoId = this.dataset.videoId;
-            modalIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&modestbranding=1`;
-            videoModal.classList.add('active');
+            document.getElementById('modal-iframe').src = `https://www.youtube.com/embed/${this.dataset.videoId}?autoplay=1`;
+            document.getElementById('video-modal').classList.add('active');
           });
         });
-
         videoStatus.textContent = '';
-      } catch (error) {
-        videoStatus.textContent = 'Kon de video’s niet laden.';
-        console.error(error);
-      }
+      } catch (e) { videoStatus.textContent = 'Kon video’s niet laden.'; }
     }
     loadYoutubeVideos();
 
-    // --- 2. Pop-out Video Sluiten ---
+    // Modals & Nav sluiten
     const videoModal = document.getElementById('video-modal');
-    const modalIframe = document.getElementById('modal-iframe');
-    const closeModal = document.getElementById('close-modal');
+    function closeVideo() { document.getElementById('modal-iframe').src = ''; videoModal.classList.remove('active'); }
+    document.getElementById('close-modal').addEventListener('click', closeVideo);
+    videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideo(); });
 
-    function closeVideo() {
-      modalIframe.src = '';
-      videoModal.classList.remove('active');
-    }
-    closeModal.addEventListener('click', closeVideo);
-    videoModal.addEventListener('click', (e) => {
-      if (e.target === videoModal || e.target.classList.contains('video-modal-wrapper')) closeVideo();
-    });
-
-    // --- 3. Navigatie Actieve Status ---
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(link => {
-      link.addEventListener('click', event => {
-        navItems.forEach(item => item.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-      });
-    });
-
-    // --- 4. PWA Installatie Logica ---
+    // --- PWA Installatie Logica ---
     let deferredPrompt;
     const androidBanner = document.getElementById('android-install-banner');
     const iosBanner = document.getElementById('ios-install-banner');
-    const closeIosBanner = document.getElementById('close-ios-banner');
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    const iosBannerText = document.getElementById('ios-banner-text');
+    
+    // Check of de site al als app geïnstalleerd is
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
     if (!isStandalone) {
-      // Android
+      // 1. Android Installatie
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
         androidBanner.style.display = 'block';
       });
-
-      androidBanner.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') console.log('App geïnstalleerd');
-          deferredPrompt = null;
-          androidBanner.style.display = 'none';
-        }
+      androidBanner.addEventListener('click', () => {
+        if (deferredPrompt) { deferredPrompt.prompt(); androidBanner.style.display = 'none'; }
       });
 
-      // iOS
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      // 2. iOS Installatie
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isChromeOnIOS = /CriOS|Chrome/.test(navigator.userAgent) && isIOS;
+      const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome|CriOS|FxiOS|EdgiOS|OPiOS/.test(navigator.userAgent);
+
+      // Controleer of iOS bezoeker en of de banner nog niet eerder is weggedrukt
       if (isIOS && !localStorage.getItem('ios-pwa-dismissed')) {
-        iosBanner.style.display = 'block';
+          
+          if (isSafari) {
+              // Instructie voor Safari
+              iosBannerText.innerHTML = `
+                  <p style="font-weight: 600; font-size: 15px; margin-bottom: 4px; color: var(--accent);">Installeer 058online</p>
+                  <p style="font-size: 13px; color: var(--text);">
+                      Tik op het <strong>Deel-icoon</strong> 
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin: 0 2px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                      <br>en kies <strong>'Toon meer' &gt; 'Zet op beginscherm'</strong>.
+                  </p>`;
+              setTimeout(() => { iosBanner.classList.add('show'); }, 1000); // Gebruikt class .show ipv inline style
+          } 
+          else if (isChromeOnIOS) {
+              // Instructie voor Chrome
+              iosBannerText.innerHTML = `
+                  <p style="font-weight: 600; font-size: 15px; margin-bottom: 4px; color: var(--accent);">Open in Safari</p>
+                  <p style="font-size: 13px; color: var(--text);">
+                      Gebruik Safari om 058online als app te installeren.
+                  </p>`;
+              setTimeout(() => { iosBanner.classList.add('show'); }, 1000); // Gebruikt class .show
+          }
       }
 
-      closeIosBanner.addEventListener('click', () => {
-        iosBanner.style.display = 'none';
+      // Banner sluiten en onthouden
+      document.getElementById('close-ios-banner').addEventListener('click', () => {
+        iosBanner.classList.remove('show');
         localStorage.setItem('ios-pwa-dismissed', 'true');
       });
     }
 
-    // Service Worker voor de PWA
+    // Registreer Service Worker
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => console.log('Service Worker niet geregistreerd:', err));
-      });
+        navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registratie mislukt:', err));
     }
   </script>
 </body>
