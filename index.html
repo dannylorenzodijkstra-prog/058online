@@ -107,14 +107,17 @@
     .install-banner { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #071b3e; padding: 14px 24px; border-radius: 50px; box-shadow: var(--shadow); display: none; z-index: 1000; font-weight: 700; text-align: center; width: max-content; cursor: pointer; transition: transform 0.2s; }
     .install-banner:hover { transform: translateX(-50%) scale(1.05); }
 
-    /* iOS Banner Specifiek: Terug naar de donkere thema-kleuren en Flexbox geforceerd */
-    .ios-install-banner { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; background: #1a2a4a; backdrop-filter: blur(18px); color: var(--text); padding: 16px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: var(--shadow); z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; display: none; }
-    /* Dit is cruciaal: als .show is toegevoegd in JS, forceert hij flexbox, geen block */
-    .ios-install-banner.show { display: flex !important; align-items: center; gap: 12px; text-align: left; }
+    /* iOS Banner Specifiek */
+    .ios-install-banner { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; background: #1a2a4a; backdrop-filter: blur(18px); color: var(--text); padding: 16px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: var(--shadow); z-index: 99999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; display: none; flex-direction: column; gap: 12px; }
+    .ios-install-banner.show { display: flex !important; }
+    
+    .ios-install-banner-content { display: flex; align-items: flex-start; gap: 12px; text-align: left; }
     .ios-install-banner-text { flex: 1; }
     .ios-install-banner-text p { margin: 0; line-height: 1.4; }
-    .ios-install-banner-close { background: none; border: none; font-size: 24px; color: var(--muted); cursor: pointer; padding: 0 0 0 10px; line-height: 1; transition: color 0.2s; }
-    .ios-install-banner-close:hover { color: var(--accent); }
+    
+    /* Aangepaste knop voor "Begrepen" */
+    .ios-install-banner-btn { background: var(--accent); color: #071b3e; border: none; padding: 10px 0; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; font-size: 14px; text-align: center; transition: opacity 0.2s; }
+    .ios-install-banner-btn:hover { opacity: 0.9; }
 
     @media (min-width: 800px) {
       .app-shell { width: min(100%, 1200px); }
@@ -252,13 +255,15 @@
     </div>
   </div>
 
-  <div id="android-install-banner" class="install-banner">Installeer 058Online als app</div>
+  <div id="android-install-banner" class="install-banner">Installeer als app</div>
 
-  <!-- Aangepaste iOS Banner HTML structuur -->
+  <!-- Aangepaste iOS Banner met "Begrepen" knop -->
   <div id="ios-install-banner" class="ios-install-banner">
-    <div style="font-size: 24px; padding-top: 4px;">📲</div>
-    <div id="ios-banner-text" class="ios-install-banner-text"></div>
-    <button id="close-ios-banner" class="ios-install-banner-close" aria-label="Sluit melding">&times;</button>
+    <div class="ios-install-banner-content">
+        <div style="font-size: 24px; padding-top: 4px;">📲</div>
+        <div id="ios-banner-text" class="ios-install-banner-text"></div>
+    </div>
+    <button id="close-ios-banner" class="ios-install-banner-btn">Begrepen</button>
   </div>
 
   <script>
@@ -353,7 +358,7 @@
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin: 0 2px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                       <br>en kies <strong>'Toon meer' &gt; 'Zet op beginscherm'</strong>.
                   </p>`;
-              setTimeout(() => { iosBanner.classList.add('show'); }, 1000); // Gebruikt class .show ipv inline style
+              setTimeout(() => { iosBanner.classList.add('show'); }, 1000);
           } 
           else if (isChromeOnIOS) {
               // Instructie voor Chrome
@@ -362,11 +367,11 @@
                   <p style="font-size: 13px; color: var(--text);">
                       Gebruik Safari om 058online als app te installeren.
                   </p>`;
-              setTimeout(() => { iosBanner.classList.add('show'); }, 1000); // Gebruikt class .show
+              setTimeout(() => { iosBanner.classList.add('show'); }, 1000);
           }
       }
 
-      // Banner sluiten en onthouden
+      // Banner sluiten en onthouden via de "Begrepen" knop
       document.getElementById('close-ios-banner').addEventListener('click', () => {
         iosBanner.classList.remove('show');
         localStorage.setItem('ios-pwa-dismissed', 'true');
